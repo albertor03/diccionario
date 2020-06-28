@@ -3,7 +3,7 @@
 Webapp para crear un diccionario online, en el cual se puede agregar, editar y eliminar terminos y sus deficioniciones, disenado con Django como framework y postgresql como motor de base de datos.
 
 # Tabla de Contenido
-1. [Dependencias.](#)
+1. [Dependencias.](#Dependencias)
 2. [Instalacion del proyecto.](#Intalacion)
 3. [Iniciar el servidor web.](#Iniciar-el-servidor-web)
 
