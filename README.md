@@ -25,6 +25,7 @@ cd project
 python manage.py makemigrations
 python manage.py migrate
 ```
+5. Importa el backup de las letras del diccionario a la base de datos.
 
 ## Iniciar el servidor web
 1. Entra al directorio del proyecto.
