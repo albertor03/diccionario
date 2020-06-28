@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %} {% block content %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="col-12">
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs d-flex justify-content-center">
+                {% for _, letra in letras %}
+                <li class="nav-item">
+                    <a class="nav-link {% if id is letra %} active {% endif %} text-uppercase" href="/diccionario/{{letra}}">{{letra}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card-body">
+            {% if lista1 == 'No hay terminos asociados a esta letra.' %}
+            {{lista1}}
+            {% elif lista1 or lista2 or lista3 %}
+            <div class="row">
+                {% if lista1 %}
+                <div class="col-4">
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                            {% for lista in lista1 %}
+                            <a href="/termino/{{lista}}" class="text-reset text-capitalize text-decoration-none mx-2 list-group-item">{{lista}}</a> {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %} {% if lista2 %}
+                <div class="col-4">
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                            {% for lista in lista2 %}
+                            <a href="/termino/{{lista}}" class="text-reset text-capitalize text-decoration-none mx-2 list-group-item">{{lista}}</a> {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %} {% if lista3 %}
+                <div class="col-4">
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                            {% for lista in lista3 %}
+                            <a href="/termino/{{lista}}" class="text-reset text-capitalize text-decoration-none mx-2 list-group-item">{{lista}}</a> {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% else %}
+            <h5 class="card-title">Bienvenido</h5>
+            <p class="card-text">Esto es un diccionario.</p>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

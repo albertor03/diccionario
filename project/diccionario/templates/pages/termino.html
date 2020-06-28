@@ -1,0 +1,90 @@
+{% extends 'base/base.html' %} {% block content %}
+<div class="container">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="row">
+        <div class="col-9">
+            <div class="card">
+                <div class="card-header text-capitalize">
+                    <div class="row">
+                        <div class="col">
+                            {{termino}}
+                        </div>
+
+                        {% if definiciones != 'No hay definiciones asociados a este termino.' %}
+                        <div class="d-flex justify-content-end align-items-center">
+                            <a href="/editar-termino/{{termino}}/{{id}}" class="fas fa-pen text-warning mr-2"></a>
+                            <a href="/eliminar-termino/{{id}}" class="fas fa-minus-circle text-danger mr-4"></a href="eliminar-termino/{{id}}">
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% if definiciones == 'No hay definiciones asociados a este termino.' %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col">
+                                {{definiciones}}
+                            </div>
+                        </div>
+                    </li>
+                    {% else %}
+                    {% for id , value, _ in definiciones %} {% if value is not None %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col">
+                                {{value}}
+                            </div>
+                            <div class="d-flex justify-content-end align-items-center">
+                                <a href="/editar-definicion/{{termino}}/{{id}}" class="fas fa-pen text-warning mr-2"></a>
+                                <a href="/eliminar-definicion/{{termino}}/{{id}}" class="fas fa-minus-circle text-danger mr-4"></a>
+                            </div>
+                        </div>
+                    </li>
+                    {% endif %} {% endfor %} {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        {% if definiciones != 'No hay definiciones asociados a este termino.' %}
+        <div class="col-3 border rounded-lg p-3">
+            {% if form == 'definicion' %} {% if action == 'editar' %}
+            <form action="/editar-definicion/{{termino}}/{{id_e}}" method="post">
+                {% else %}
+                <form action="/agregar-definicion" method="post">
+                    {% endif %} {% csrf_token %}
+                    <div class="form-group">
+                        <label>Deficinion</label>
+                        <input type="text" name="idTermino" value="{{id}}" hidden>
+                        <textarea class="form-control" rows="4" name="nombreDefinicion" required>{{definicion}}</textarea>
+                    </div>
+                    {% if action == 'editar' %}
+                    <button type="submit" class="btn btn-primary">Editar</button> {% else %}
+                    <button type="submit" class="btn btn-primary">Agregar</button> {% endif %}
+                </form>
+                {% elif form == 'termino' %}
+                <form action="/editar-termino/{{termino}}/{{id}}/" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="nombreDefinicion">Termino</label>
+                        <input type="text" name="idTermino" value="{{id}}" hidden>
+                        <input type="text" class="form-control text-capitalize" name="nombreTermino" value="{{termino}}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Editar</button>
+                </form>
+                {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
