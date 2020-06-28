@@ -4,7 +4,7 @@ Webapp para crear un diccionario online, en el cual se puede agregar, editar y e
 
 # Tabla de Contenido
 1. [Dependencias.](#Dependencias)
-2. [Instalacion del proyecto.](#Intalacion)
+2. [Instalacion del proyecto.](#Instalacion)
 3. [Iniciar el servidor web.](#Iniciar-el-servidor-web)
 
 ## Dependencias
